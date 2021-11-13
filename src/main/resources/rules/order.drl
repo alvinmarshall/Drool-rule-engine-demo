@@ -1,0 +1,14 @@
+package KieRule
+import com.example.learndrool.domain.Order
+
+rule "HDFC"
+
+when
+order : Order(cardType=="HDFC" && price>10000);
+then
+order.setDiscount(10);
+end;
+
+rule "DBS"
+when order : Order(cardType=="DBS" && price > 1500);
+then order.setDiscount(15); end;
