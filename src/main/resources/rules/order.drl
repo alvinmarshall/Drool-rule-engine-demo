@@ -1,4 +1,5 @@
-package KieRule
+package com.example.learndrool.rules
+
 import com.example.learndrool.domain.Order
 
 rule "HDFC"

@@ -14,14 +14,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Configuration
 public class DroolConfig {
     private final KieServices kieServices = KieServices.Factory.get();
+    private final String RULE_PATH = "rules/";
 
     private KieFileSystem getKieFileSystem() {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        List<String> rules = List.of("rules/order.drl");
+        List<String> rules = Stream.of("customer_discount.xlsx")
+                .map(s -> RULE_PATH + s).collect(Collectors.toList());
         for (String rule : rules) {
             kieFileSystem.write(ResourceFactory.newClassPathResource(rule));
         }
@@ -46,7 +50,8 @@ public class DroolConfig {
     public KieSession kieSession() {
         getKieRepository();
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        kieFileSystem.write(ResourceFactory.newClassPathResource("rules/order.drl"));
+//        kieFileSystem.write(ResourceFactory.newClassPathResource(RULE_PATH + "order.drl"));
+        kieFileSystem.write(ResourceFactory.newClassPathResource(RULE_PATH + "customer_discount.xlsx"));
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
         KieModule kieModule = kieBuilder.getKieModule();
