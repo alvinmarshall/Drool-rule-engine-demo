@@ -24,7 +24,7 @@ public class DroolConfig {
 
     private KieFileSystem getKieFileSystem() {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        List<String> rules = Stream.of("customer_discount.xlsx")
+        List<String> rules = Stream.of("customer_discount.xlsx", "employee_tax.xlsx")
                 .map(s -> RULE_PATH + s).collect(Collectors.toList());
         for (String rule : rules) {
             kieFileSystem.write(ResourceFactory.newClassPathResource(rule));
@@ -52,6 +52,7 @@ public class DroolConfig {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
 //        kieFileSystem.write(ResourceFactory.newClassPathResource(RULE_PATH + "order.drl"));
         kieFileSystem.write(ResourceFactory.newClassPathResource(RULE_PATH + "customer_discount.xlsx"));
+        kieFileSystem.write(ResourceFactory.newClassPathResource(RULE_PATH + "employee_tax.xlsx"));
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
         KieModule kieModule = kieBuilder.getKieModule();

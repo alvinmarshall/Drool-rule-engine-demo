@@ -24,21 +24,19 @@ class OrderServiceImplTest {
     void tearDown() {
     }
 
-//    @Test
-//    void shouldApplyDBSDiscount() {
-//        Order order = new Order();
-//        order.setName("DBS discount");
-//        order.setCardType("DBS");
-//        order.setPrice(1501);
-//        Order order1 = orderService.applyDiscount(order);
-//        log.info("order: {}", order1);
-//        Assertions.assertEquals(order1.getDiscount(), 15);
-//    }
+    @Test
+    void shouldApplyDBSDiscount() {
+        Order order = new Order();
+        order.setCardType("DBS");
+        order.setPrice(1501);
+        Order order1 = orderService.applyDiscount(order);
+        log.info("order: {}", order1);
+        Assertions.assertEquals(order1.getDiscount(), 5);
+    }
 
     @Test
     void shouldApplyHDFCDiscount() {
         Order order = new Order();
-        order.setName("HDFC discount");
         order.setCardType("HDFC");
         order.setPrice(10001);
         Order order1 = orderService.applyDiscount(order);
